@@ -53,13 +53,21 @@
     class="header-logo__image-container header-logo__image-container--original"
     data-testid="header-logo"
   >
-    {% render 'image',
-      image: settings.logo,
-      class: 'header-logo__image',
-      height: settings.logo_height,
-      text_fallback: shop.name,
-      style: logo_style
-    %}
+    {% if settings.logo %}
+      {% render 'image',
+        image: settings.logo,
+        class: 'header-logo__image',
+        height: settings.logo_height,
+        text_fallback: shop.name,
+        style: logo_style
+      %}
+    {% else %}
+      <span class="header-logo__text">
+        <span class="header-logo__text-nimbo">NIMBO</span>
+        <span class="header-logo__text-divider"></span>
+        <span class="header-logo__text-house">HOUSE</span>
+      </span>
+    {% endif %}
   </span>
 
   {% if use_inverse_logo %}
@@ -67,13 +75,21 @@
       class="header-logo__image-container header-logo__image-container--inverse"
       data-testid="header-logo-inverse"
     >
-      {% render 'image',
-        image: inverse_logo,
-        class: 'header-logo__image',
-        height: settings.logo_height,
-        text_fallback: shop.name,
-        style: inverse_logo_style
-      %}
+      {% if inverse_logo %}
+        {% render 'image',
+          image: inverse_logo,
+          class: 'header-logo__image',
+          height: settings.logo_height,
+          text_fallback: shop.name,
+          style: inverse_logo_style
+        %}
+      {% else %}
+        <span class="header-logo__text">
+          <span class="header-logo__text-nimbo">NIMBO</span>
+          <span class="header-logo__text-divider"></span>
+          <span class="header-logo__text-house">HOUSE</span>
+        </span>
+      {% endif %}
     </span>
   {% endif %}
 </a>
@@ -136,6 +152,52 @@
 
   .header-logo__image-container--inverse {
     display: var(--header-logo-inverse-display, none);
+  }
+
+  .header-logo__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    line-height: 1;
+  }
+
+  .header-logo__text-nimbo {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 28px;
+    letter-spacing: 10px;
+    color: currentColor;
+  }
+
+  .header-logo__text-divider {
+    width: 80px;
+    height: 0.5px;
+    background: currentColor;
+  }
+
+  .header-logo__text-house {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: currentColor;
+  }
+
+  @media screen and (max-width: 749px) {
+    .header-logo__text-nimbo {
+      font-size: 20px;
+      letter-spacing: 8px;
+    }
+
+    .header-logo__text-house {
+      font-size: 8px;
+      letter-spacing: 5px;
+    }
+
+    .header-logo__text-divider {
+      width: 60px;
+    }
   }
 {% endstylesheet %}
 
